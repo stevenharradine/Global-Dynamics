@@ -1,0 +1,13 @@
+.content .icon {
+  font-size: 1.5em;
+  display: block;
+  margin-bottom: 10px; }
+.content .icon-actual {
+  float: left; }
+.content .icon-label {
+  opacity: 1;
+  position: relative;
+  visibility: visible;
+  margin-left: 20px; }
+
+/*# sourceMappingURL=styles.css.map */

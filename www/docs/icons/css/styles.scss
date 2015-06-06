@@ -1,0 +1,18 @@
+.content {
+	.icon {
+		font-size: 1.5em;
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	.icon-actual {
+		float: left;
+	}
+
+	.icon-label {
+		opacity: 1;
+		position: relative;
+		visibility: visible;
+		margin-left: 20px;
+	}
+}

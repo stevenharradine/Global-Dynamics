@@ -1,0 +1,26 @@
+#! /bin/sh
+# /etc/init.d/sarah-reader
+#
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# Some things that run always
+#touch /var/lock/sarah-reader
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting script sarah-reader "
+    /etc/SARAH/www/apps/reader/updater/run.sh
+    ;;
+  stop)
+    echo "Stopping script sarah-reader"
+    echo "Could do more here"
+    ;;
+  *)
+    echo "Usage: /etc/init.d/sarah-reader {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
