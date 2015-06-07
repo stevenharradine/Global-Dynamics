@@ -15,10 +15,10 @@
   "apps": [{
     "name": "Manage Users",
     "git": "https://github.com/stevenharradine/SARAH-ManageUsers.git",
-    "path": "manage-users"
+    "path": "SARAH-ManageUsers"
   },{
     "name": "Settings",
     "git": "https://github.com/stevenharradine/SARAH-Settings.git",
-    "path": "settings"
+    "path": "SARAH-Settings.git"
   }]
 }
