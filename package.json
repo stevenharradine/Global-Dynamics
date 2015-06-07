@@ -6,7 +6,6 @@
     "url": "https://github.com/stevenharradine/SARAH-framework.git"
   },
   "devDependencies": {
-    "grunt": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-watch": "*",
     "cli-color": "*",
