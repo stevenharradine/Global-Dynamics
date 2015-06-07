@@ -9,56 +9,12 @@
     "execSync": "*"
   },
   "apps": [{
-  	"name": "Bookmarks",
-    "git": "http://192.168.1.4/SARAH/bookmarks.git",
-    "path": "bookmarks"
-  },{
-    "name": "Budget",
-    "git": "http://192.168.1.4/SARAH/budget.git",
-    "path": "budget"
-  },{
-    "name": "Books",
-    "git": "http://192.168.1.4/SARAH/books.git",
-    "path": "books"
-  },{
-    "name": "Reader",
-    "git": "http://192.168.1.4/SARAH/reader.git",
-    "path": "reader"
-  },{
-    "name": "Password Manager",
-    "git": "http://192.168.1.4/SARAH/password-manager.git",
-    "path": "password-manager"
-  },{
-    "name": "Music",
-    "git": "http://192.168.1.4/SARAH/music.git",
-    "path": "music"
-  },{
-    "name": "Contacts",
-    "git": "http://192.168.1.4/SARAH/contacts.git",
-    "path": "contacts"
-  },{
-    "name": "Key Store",
-    "git": "http://192.168.1.4/SARAH/key-store.git",
-    "path": "key-store"
-  },{
     "name": "Manage Users",
-    "git": "http://192.168.1.4/SARAH/manage-users.git",
+    "git": "https://github.com/stevenharradine/SARAH-ManageUsers.git",
     "path": "manage-users"
   },{
     "name": "Settings",
-    "git": "http://192.168.1.4/SARAH/settings.git",
+    "git": "https://github.com/stevenharradine/SARAH-Settings.git",
     "path": "settings"
-  },{
-    "name": "Weather",
-    "git": "http://192.168.1.4/SARAH/weather.git",
-    "path": "weather"
-  },{
-    "name": "XBMC Remote",
-    "git": "http://192.168.1.4/SARAH/xbmc-remote.git",
-    "path": "xbmc-remote"
-  },{
-  	"name": "YouTube Downloader",
-    "git": "http://192.168.1.4/SARAH/youtube-downloader.git",
-    "path": "youtube-downloader"
   }]
 }
