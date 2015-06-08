@@ -4,7 +4,7 @@
 	<h2 id="editTitle"><?php echo $editView->getTitle(); ?></h2>
 	<form action="<?php echo $editView->getSubmitPage (); ?>" method="post" id="edit_stocks" class="form">
 		<input type="hidden" name="action" value="<?php echo $editView->getAction(); ?>" />
-		<input type="hidden" name="<?php echo $data->getCustomId (); ?>id" value="<?php echo $editView->getId (); ?>" />
+		<input type="hidden" name="<?php echo $editView->getCustomId (); ?>id" value="<?php echo $editView->getId (); ?>" />
 <?php
 	while ( $editView->hasMore() ) {
 		$row = $editView->getCurrentRow ();
