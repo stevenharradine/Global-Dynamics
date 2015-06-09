@@ -19,5 +19,9 @@
     "name": "Settings",
     "git": "https://github.com/stevenharradine/SARAH-Settings.git",
     "path": "SARAH-Settings"
+  },{
+    "name": "Reader",
+    "git": "https://github.com/stevenharradine/SARAH-reader.git",
+    "path": "SARAH-reader"
   }]
 }
