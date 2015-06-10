@@ -23,5 +23,9 @@
     "name": "Reader",
     "git": "https://github.com/stevenharradine/SARAH-reader.git",
     "path": "SARAH-reader"
+  },{
+    "name": "Media",
+    "git": "https://github.com/stevenharradine/SARAH-media.git",
+    "path": "SARAH-media"
   }]
 }
