@@ -12,7 +12,9 @@ module.exports = function(grunt) {
 					'www/css/fonts.css' : 'www/css/fonts.scss',
 
 					'www/apps/**/css/*.css' : 'www/apps/**/css/*.scss',
-                                        'www/apps/SARAH-reader/css/styles.css' : 'www/apps/SARAH-reader/css/styles.scss'
+                    'www/apps/SARAH-reader/css/styles.css' : 'www/apps/SARAH-reader/css/styles.scss',
+                    'www/apps/SARAH-media/css/styles.css' : 'www/apps/SARAH-media/css/styles.scss',
+                    'www/apps/SARAH-media/css/player.css' : 'www/apps/SARAH-media/css/player.scss'
 
 				}
 			}
