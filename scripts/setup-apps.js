@@ -1,11 +1,15 @@
 var sarah_root = '/etc/SARAH/',
-    app_root = 'www/apps/';
- //   app_root_exist = ;
+    app_root = 'www/apps/',
+ //   app_root_exist = ,
 
-var sh = require('execSync');	// executing system commands
-var clc = require('cli-color');	// colours in the console
+    sh  = require('execSync'),	// executing system commands
+    clc = require('cli-color'),	// colours in the console
+    fs  = require('fs'),			// for file streams
+    fs_filename = "registered.php",
 
-console.log ("Updating root SARAH repo");
+    DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8'));
+
+console.log ("Updating root SARAH framework repo");
 sh.exec ("cd " + sarah_root + " && git pull");
 
 console.log ("Reading package.json");
@@ -14,9 +18,7 @@ var packagejson = require (sarah_root + 'package.json'),
 
 var registeredPhpOutput = "<?php " + 
                           "$registered_apps = array ();";
-// for file streams
-var fs = require('fs'),
-    fs_filename = "registered.php";
+
 
 // create apps folder if needed
 var result = sh.exec ("mkdir " + sarah_root + app_root);
@@ -40,6 +42,9 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 		console.log ("> " + cmd);
 		console.log (sh.exec (cmd).stdout);
 	}
+
+	// load inital sql
+	console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
 
 	// update buffered output of registered.php
 	registeredPhpOutput += "$registered_apps[] = '" + appPath + "';";
