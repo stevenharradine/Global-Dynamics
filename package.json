@@ -27,5 +27,9 @@
     "name": "Media",
     "git": "https://github.com/stevenharradine/SARAH-media.git",
     "path": "SARAH-media"
+  },{
+    "name": "X10",
+    "git": "https://github.com/stevenharradine/SARAH-x10.git",
+    "path": "SARAH-x10"
   }]
 }
