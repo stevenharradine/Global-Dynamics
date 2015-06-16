@@ -12,6 +12,9 @@ var sarah_root = '/etc/SARAH/',
 console.log ("Updating root SARAH framework repo");
 sh.exec ("cd " + sarah_root + " && git pull");
 
+// load inital sql
+console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + "/init.sql").stdout);
+
 console.log ("Reading package.json");
 var packagejson = require (sarah_root + 'package.json'),
     numberOfApps = packagejson.apps.length;
