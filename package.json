@@ -31,5 +31,9 @@
     "name": "X10",
     "git": "https://github.com/stevenharradine/SARAH-x10.git",
     "path": "SARAH-x10"
+  },{
+    "name": "Books",
+    "git": "https://github.com/stevenharradine/SARAH-books.git",
+    "path": "SARAH-books"
   }]
 }
