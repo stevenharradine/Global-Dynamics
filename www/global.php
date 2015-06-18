@@ -13,9 +13,7 @@
 			die ('Could not connect to MySQL');
 		}
 
-		if (isDBInit ()) {
-			mysql_select_db($DB_NAME, $link) or die(mysql_error());
-		}
+		mysql_select_db($DB_NAME, $link) or die(mysql_error());
 		
 		return $link;
 	}
