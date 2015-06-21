@@ -15,7 +15,8 @@ module.exports = function(grunt) {
                     'www/apps/SARAH-reader/css/styles.css' : 'www/apps/SARAH-reader/css/styles.scss',
                     'www/apps/SARAH-media/css/styles.css' : 'www/apps/SARAH-media/css/styles.scss',
                     'www/apps/SARAH-media/css/player.css' : 'www/apps/SARAH-media/css/player.scss',
-                    'www/apps/SARAH-xbmc/css/styles.css' : 'www/apps/SARAH-xbmc/css/styles.scss'
+                    'www/apps/SARAH-xbmc/css/styles.css' : 'www/apps/SARAH-xbmc/css/styles.scss',
+                    'www/apps/SARAH-contacts/css/styles.css' : 'www/apps/SARAH-contacts/css/styles.scss'
 
 				}
 			}
