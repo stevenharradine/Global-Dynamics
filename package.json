@@ -39,5 +39,9 @@
     "name": "XBMC Remote",
     "git": "https://github.com/stevenharradine/SARAH-xbmc.git",
     "path": "SARAH-xbmc"
+  },{
+    "name": "Contacts",
+    "git": "https://github.com/stevenharradine/SARAH-contacts.git",
+    "path": "SARAH-contacts"
   }]
 }
