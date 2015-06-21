@@ -10,7 +10,7 @@ var sarah_root = '/etc/SARAH/',
     DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8'));
 
 console.log (clc.whiteBright.bgGreen("Updating root SARAH framework repo"));
-console.log (sh.exec ("cd " + sarah_root + " && git pull"));
+console.log (sh.exec ("cd " + sarah_root + " && git pull").stdout);
 
 // load inital sql
 console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + " < " + sarah_root + "/init.sql").stdout);
