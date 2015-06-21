@@ -9,8 +9,8 @@ var sarah_root = '/etc/SARAH/',
 
     DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8'));
 
-console.log ("Updating root SARAH framework repo");
-sh.exec ("cd " + sarah_root + " && git pull");
+console.log (clc.whiteBright.bgGreen("Updating root SARAH framework repo"));
+console.log (sh.exec ("cd " + sarah_root + " && git pull"));
 
 // load inital sql
 console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + "/init.sql").stdout);
@@ -48,6 +48,8 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 
 	// load inital sql
 	console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
+
+	console.log (sh.exec ("cd " + sarah_root + app_root + appPath + "/updater && bash compile.sh").stdout);
 
 	// update buffered output of registered.php
 	registeredPhpOutput += "$registered_apps[] = '" + appPath + "';";
