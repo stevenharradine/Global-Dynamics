@@ -35,5 +35,9 @@
     "name": "Books",
     "git": "https://github.com/stevenharradine/SARAH-books.git",
     "path": "SARAH-books"
+  },{
+    "name": "XBMC Remote",
+    "git": "https://github.com/stevenharradine/SARAH-xbmc.git",
+    "path": "SARAH-xbmc"
   }]
 }
