@@ -9,6 +9,23 @@ var sarah_root = '/etc/SARAH/',
 
     DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8'));
 
+function compileSassFile (filePath, file) {
+	console.log (sh.exec ("cd " + filePath + " && " + "sass " + file + ".scss " + file + ".css").stdout);
+}
+
+function compileSassFolder (folderPath) {
+	console.log (folderPath);
+
+	fs.readdir (folderPath, function (error, files) {
+		files.forEach (function (file) {
+			if (file.indexOf(".scss") >= 0) {
+				console.log ("SASSing " + folderPath + file);
+				compileSassFile (folderPath, file.split('.scss')[0]);
+			}
+		});
+	});
+}
+
 console.log (clc.whiteBright.bgGreen("Updating root SARAH framework repo"));
 console.log (sh.exec ("cd " + sarah_root + " && git pull").stdout);
 
@@ -21,7 +38,6 @@ var packagejson = require (sarah_root + 'package.json'),
 
 var registeredPhpOutput = "<?php " + 
                           "$registered_apps = array ();";
-
 
 // create apps folder if needed
 var result = sh.exec ("mkdir " + sarah_root + app_root);
@@ -46,6 +62,9 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 		console.log (sh.exec (cmd).stdout);
 	}
 
+	// compile SASS
+	compileSassFolder (sarah_root + app_root + appPath + "/css/");
+
 	// load inital sql
 	console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
 
@@ -65,8 +84,4 @@ fs.writeFile(sarah_root + app_root + fs_filename, registeredPhpOutput, function(
 });
 
 // compile SASS
-console.log ();
-console.log (clc.whiteBright.bgGreen("Compiling SASS"));
-var cmd = "cd " + sarah_root + " && " + "grunt sass";
-var result = sh.exec (cmd);
-console.log (result.stdout);
+compileSassFolder (sarah_root + "www/css/");
