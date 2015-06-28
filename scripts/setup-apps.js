@@ -9,18 +9,14 @@ var sarah_root = '/etc/SARAH/',
 
     DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8'));
 
-function compileSassFile (filePath, file) {
-	console.log (sh.exec ("cd " + filePath + " && " + "sass " + file + ".scss " + file + ".css").stdout);
-}
-
 function compileSassFolder (folderPath) {
 	console.log (folderPath);
 
 	fs.readdir (folderPath, function (error, files) {
 		files.forEach (function (file) {
-			if (file.indexOf(".scss") >= 0) {
+			if (file.toLowerCase().indexOf(".scss") >= 0) {
 				console.log ("SASSing " + folderPath + file);
-				compileSassFile (folderPath, file.split('.scss')[0]);
+				console.log (sh.exec ("cd " + filePath + " && " + "sass " + file + " " + file.split('.scss')[0] + ".css").stdout);
 			}
 		});
 	});
