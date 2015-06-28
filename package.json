@@ -46,22 +46,22 @@
   },{
     "name": "Stocks",
     "git": "https://github.com/stevenharradine/SARAH-stocks",
-    "path": "SARH-stocks"
+    "path": "SARAH-stocks"
   },{
     "name": "Password Manager",
     "git": "https://github.com/stevenharradine/SARAH-password-manager.git",
-    "path": "SARH-password-manager"
+    "path": "SARAH-password-manager"
   },{
     "name": "Key Store",
     "git": "https://github.com/stevenharradine/SARAH-keystore.git",
-    "path": "SARH-keystore"
+    "path": "SARAH-keystore"
   },{
     "name": "Bookmarks",
     "git": "https://github.com/stevenharradine/SARAH-bookmarks",
-    "path": "SARH-bookmarks"
+    "path": "SARAH-bookmarks"
   },{
     "name": "Budget",
     "git": "https://github.com/stevenharradine/SARAH-budget",
-    "path": "SARH-budget"
+    "path": "SARAH-budget"
   }]
 }
