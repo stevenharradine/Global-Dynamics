@@ -16,7 +16,7 @@ function compileSassFolder (folderPath) {
 		files.forEach (function (file) {
 			if (file.toLowerCase().indexOf(".scss") >= 0) {
 				console.log ("SASSing " + folderPath + file);
-				console.log (sh.exec ("cd " + filePath + " && " + "sass " + file + " " + file.split('.scss')[0] + ".css").stdout);
+				console.log (sh.exec ("cd " + folderPath + " && " + "sass " + file + " " + file.split('.scss')[0] + ".css").stdout);
 			}
 		});
 	});
