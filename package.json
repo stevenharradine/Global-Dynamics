@@ -44,23 +44,23 @@
     "git": "https://github.com/stevenharradine/SARAH-contacts.git",
     "path": "SARAH-contacts"
   },{
-    "name": "Stocks"
+    "name": "Stocks",
     "git": "https://github.com/stevenharradine/SARAH-stocks",
     "path": "SARH-stocks"
   },{
-    "name": "Password Manager"
+    "name": "Password Manager",
     "git": "https://github.com/stevenharradine/SARAH-password-manager.git",
     "path": "SARH-password-manager"
   },{
-    "name": "Key Store"
+    "name": "Key Store",
     "git": "https://github.com/stevenharradine/SARAH-keystore.git",
     "path": "SARH-keystore"
   },{
-    "name": "Bookmarks"
+    "name": "Bookmarks",
     "git": "https://github.com/stevenharradine/SARAH-bookmarks",
     "path": "SARH-bookmarks"
   },{
-    "name": "Budget"
+    "name": "Budget",
     "git": "https://github.com/stevenharradine/SARAH-budget",
     "path": "SARH-budget"
   }]
