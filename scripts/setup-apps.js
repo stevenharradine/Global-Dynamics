@@ -68,7 +68,7 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 	console.log (sh.exec ("cd " + sarah_root + app_root + appPath + "/updater && bash compile.sh").stdout);
 
 	// configure system for app
-	console.log (sh.exec ("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appPath + "/playbook.yml").stdout);
+	console.log (sh.exec ("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appPath + "/playbook.yml | tee setup-apps.log").stdout);
 
 	// update buffered output of registered.php
 	registeredPhpOutput += "$registered_apps[] = '" + appPath + "';";
