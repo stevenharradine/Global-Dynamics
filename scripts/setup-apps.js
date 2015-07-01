@@ -64,7 +64,11 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 	// load inital sql
 	console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
 
+	// compile updaters
 	console.log (sh.exec ("cd " + sarah_root + app_root + appPath + "/updater && bash compile.sh").stdout);
+
+	// configure system for app
+	console.log (sh.exec ("cd " + sarah_root + app_root + appPath + " && ansible-playbook playbook.yml").stdout);
 
 	// update buffered output of registered.php
 	registeredPhpOutput += "$registered_apps[] = '" + appPath + "';";
