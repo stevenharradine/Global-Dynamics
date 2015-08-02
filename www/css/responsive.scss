@@ -196,7 +196,8 @@ fieldset {
 }
 
 th, td {
-	padding: 5px 10px; 
+	padding: 5px 10px;
+	vertical-align: top;
 }
 th, tr.total td {
 	text-align: left;
