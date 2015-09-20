@@ -11,6 +11,10 @@ var sarah_root = '/etc/SARAH/',
 
     isSassOnly = process.argv[2] == "sass"
 
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function compileSassFolder (folderPath) {
 	console.log (folderPath);
 
@@ -47,39 +51,40 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 	// load package name
 	console.log ();
 	console.log (clc.whiteBright.bgGreen(" Loading " + packagejson.apps[i].name + " "));
-	var appName = packagejson.apps[i].name,
-	    gitPath = packagejson.apps[i].git,
-	    appPath = packagejson.apps[i].path;
+	var appName     = packagejson.apps[i].name,
+	    appSafeName = replaceAll (" ", "", appName),
+	    gitPath     = packagejson.apps[i].git,
+	    appPath     = packagejson.apps[i].path;
 
 	if (!isSassOnly) {
 		// if the response back from git clone contains "already exists" try doing a git pull
-		var cmd = "cd " + sarah_root + app_root + " && " + "git clone " + gitPath;
+		var cmd = "cd " + sarah_root + app_root + " && " + "git clone " + gitPath + " " + appSafeName;
 		console.log ("> " + cmd)
 		var clone = sh.exec (cmd).stdout
 
 		if (clone.indexOf ("already exists") >= 0) {
-			var cmd = "cd " + sarah_root + app_root + appPath + " && " + "git pull";
+			var cmd = "cd " + sarah_root + app_root + appSafeName + " && " + "git pull";
 			console.log ("> " + cmd);
 			console.log (sh.exec (cmd).stdout);
 		}
 	}
 
 	// compile SASS
-	compileSassFolder (sarah_root + app_root + appPath + "/css/");
+	compileSassFolder (sarah_root + app_root + appSafeName + "/css/");
 
 	if (!isSassOnly) {
 		// load inital sql
 		console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
 
 		// compile updaters
-		console.log (sh.exec ("cd " + sarah_root + app_root + appPath + "/updater && bash compile.sh").stdout);
+		console.log (sh.exec ("cd " + sarah_root + app_root + appSafeName + "/updater && bash compile.sh").stdout);
 
 		// configure system for app
-		console.log (sh.exec ("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appPath + "/playbook.yml").stdout);
+		console.log (sh.exec ("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appSafeName + "/playbook.yml").stdout);
 	}
 
 	// update buffered output of registered.php
-	registeredPhpOutput += "$registered_apps[] = '" + appPath + "';";
+	registeredPhpOutput += "$registered_apps[] = '" + appSafeName + "';";
 }
 
 if (!isSassOnly) {
