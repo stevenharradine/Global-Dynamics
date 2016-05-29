@@ -2,7 +2,6 @@ var sarah_root = '/etc/SARAH/',
     app_root = 'www/apps/',
  //   app_root_exist = ,
 
-    sh  = require('execSync'),	// executing system commands
     clc = require('cli-color'),	// colours in the console
     fs  = require('fs'),			// for file streams
     fs_filename = "registered.php",
@@ -10,6 +9,8 @@ var sarah_root = '/etc/SARAH/',
     DB_CONFIG = JSON.parse(fs.readFileSync(sarah_root + 'config.json', 'utf8')),
 
     isSassOnly = process.argv[2] == "sass"
+var sys = require('sys')
+var exec = require('child_process').exec
 
 function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
@@ -22,7 +23,14 @@ function compileSassFolder (folderPath) {
 		files.forEach (function (file) {
 			if (file.toLowerCase().indexOf(".scss") >= 0) {
 				console.log ("SASSing " + folderPath + file);
-				console.log (sh.exec ("cd " + folderPath + " && " + "sass " + file + " " + file.split('.scss')[0] + ".css").stdout);
+
+				exec("cd " + folderPath + " && " + "sass " + file + " " + file.split('.scss')[0] + ".css", function (error, stdout, stderr) {
+					sys.print('stdout: ' + stdout);
+					sys.print('stderr: ' + stderr);
+					if (error !== null) {
+						console.log('exec error: ' + error);
+					}
+				})
 			}
 		});
 	});
@@ -30,10 +38,23 @@ function compileSassFolder (folderPath) {
 
 if (!isSassOnly) {
 	console.log (clc.whiteBright.bgGreen("Updating root SARAH framework repo"));
-	console.log (sh.exec ("cd " + sarah_root + " && git pull").stdout);
+	
+	exec("cd " + sarah_root + " && git pull", function (error, stdout, stderr) {
+		sys.print('stdout: ' + stdout);
+		sys.print('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	})
 
 	// load inital sql
-	console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + " < " + sarah_root + "/init.sql").stdout);
+	exec("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + " < " + sarah_root + "/init.sql", function (error, stdout, stderr) {
+		sys.print('stdout: ' + stdout);
+		sys.print('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	})
 }
 
 console.log ("Reading package.json");
@@ -44,8 +65,13 @@ var registeredPhpOutput = "<?php " +
                           "$registered_apps = array ();";
 
 // create apps folder if needed
-var result = sh.exec ("mkdir " + sarah_root + app_root);
-console.log (result.stdout);
+exec("mkdir " + sarah_root + app_root, function (error, stdout, stderr) {
+	sys.print('stdout: ' + stdout);
+	sys.print('stderr: ' + stderr);
+	if (error !== null) {
+		console.log('exec error: ' + error);
+	}
+})
 
 for (var i = 0; i <= numberOfApps - 1; i++) {
 	// load package name
@@ -60,13 +86,25 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 		// if the response back from git clone contains "already exists" try doing a git pull
 		var cmd = "cd " + sarah_root + app_root + " && " + "git clone " + gitPath + " " + appSafeName;
 		console.log ("> " + cmd)
-		var clone = sh.exec (cmd).stdout
+		exec(cmd, function (error, stdout, stderr) {
+			sys.print('stdout: ' + stdout);
+			sys.print('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
 
-		if (clone.indexOf ("already exists") >= 0) {
-			var cmd = "cd " + sarah_root + app_root + appSafeName + " && " + "git pull";
-			console.log ("> " + cmd);
-			console.log (sh.exec (cmd).stdout);
-		}
+			if (stderr.indexOf ("already exists") >= 0) {
+				var cmd = "cd " + sarah_root + app_root + appSafeName + " && " + "git pull";
+				console.log ("> " + cmd);
+				exec(cmd, function (error, stdout, stderr) {
+					sys.print('stdout: ' + stdout);
+					sys.print('stderr: ' + stderr);
+					if (error !== null) {
+						console.log('exec error: ' + error);
+					}
+				})
+			}
+		})
 	}
 
 	// compile SASS
@@ -74,13 +112,31 @@ for (var i = 0; i <= numberOfApps - 1; i++) {
 
 	if (!isSassOnly) {
 		// load inital sql
-		console.log (sh.exec ("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql").stdout);
+		exec("mysql -u " + DB_CONFIG.DB_USER + " --password=" + DB_CONFIG.DB_PASS + " " + DB_CONFIG.DB_NAME + " < " + sarah_root + app_root + appPath + "/init.sql", function (error, stdout, stderr) {
+			sys.print('stdout: ' + stdout);
+			sys.print('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
+		})
 
 		// compile updaters
-		console.log (sh.exec ("cd " + sarah_root + app_root + appSafeName + "/updater && bash compile.sh").stdout);
+		exec("cd " + sarah_root + app_root + appSafeName + "/updater && bash compile.sh", function (error, stdout, stderr) {
+			sys.print('stdout: ' + stdout);
+			sys.print('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
+		})
 
 		// configure system for app
-		console.log (sh.exec ("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appSafeName + "/playbook.yml").stdout);
+		exec("ansible-playbook -i \"localhost,\" " + sarah_root + app_root + appSafeName + "/playbook.yml", function (error, stdout, stderr) {
+			sys.print('stdout: ' + stdout);
+			sys.print('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
+		})
 	}
 
 	// update buffered output of registered.php
