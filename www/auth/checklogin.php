@@ -11,8 +11,8 @@
 	mysqli_select_db($link, $DB_NAME) or die(mysqli_error());
 
 	// To protect MySQL injection (more detail about MySQL injection)
-	$username = mysqli_real_escape_string(stripslashes($_POST['myusername']));
-	$password = mysqli_real_escape_string(stripslashes($_POST['mypassword']));
+	$username = mysqli_real_escape_string($link, stripslashes($_POST['myusername']));
+	$password = mysqli_real_escape_string($link, stripslashes($_POST['mypassword']));
 
 	$authManager = new AuthManager();
 
