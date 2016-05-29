@@ -7,12 +7,12 @@
 	require_once '_model.php';
 	
 	// Connects to your Database
-	mysql_connect($DB_ADDRESS, $DB_USER, $DB_PASS) or die(mysql_error());
-	mysql_select_db($DB_NAME) or die(mysql_error());
+	$link = mysqli_connect($DB_ADDRESS, $DB_USER, $DB_PASS) or die(mysqli_error());
+	mysqli_select_db($link, $DB_NAME) or die(mysqli_error());
 
 	// To protect MySQL injection (more detail about MySQL injection)
-	$username = mysql_real_escape_string(stripslashes($_POST['myusername']));
-	$password = mysql_real_escape_string(stripslashes($_POST['mypassword']));
+	$username = mysqli_real_escape_string(stripslashes($_POST['myusername']));
+	$password = mysqli_real_escape_string(stripslashes($_POST['mypassword']));
 
 	$authManager = new AuthManager();
 

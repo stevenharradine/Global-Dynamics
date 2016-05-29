@@ -7,13 +7,13 @@
 	require_once ($relative_base_path . 'config.php');
 	
 	function DB_Connect($DB_ADDRESS, $DB_USER, $DB_PASS, $DB_NAME) {
-		$link = mysql_connect($DB_ADDRESS, $DB_USER, $DB_PASS);
+		$link = mysqli_connect($DB_ADDRESS, $DB_USER, $DB_PASS);
 		
 		if(!$link) {
 			die ('Could not connect to MySQL');
 		}
 
-		mysql_select_db($DB_NAME, $link) or die(mysql_error());
+		mysqli_select_db($link, $DB_NAME) or die(mysqli_error());
 		
 		return $link;
 	}

@@ -2,6 +2,7 @@
 	class AuthManager {
 		public function changePassword ($current_password, $new_password) {
 			global $sessionManager;
+			global $link;
 			$USER_ID = $sessionManager->getUserId();
 
 			// if the supplied password ($current_password) is correct
@@ -22,7 +23,7 @@
 	WHERE
 		`USER_ID`='$USER_ID'
 EOD;
-				return mysql_query($sql) or die(mysql_error());
+				return mysqli_query($link, $sql) or die(mysqli_error());
 			}
 			
 			return NULL;
@@ -30,6 +31,7 @@ EOD;
 
 		public function updateRecord ($id=null, $user_type, $username, $new_password) {
 			global $sessionManager;
+			global $link;
 			$USER_ID = ($id != null) ? $id : $sessionManager->getUserId();
 
 			if ($new_password != '') {
@@ -53,10 +55,12 @@ EOD;
 		`USER_ID`='$USER_ID'
 EOD;
 
-			return mysql_query($sql) or die(mysql_error());
+			return mysqli_query($link, $sql) or die(mysqli_error());
 		}
 
 		public function deleteUser ($id) {
+			global $link;
+
 			$sql = <<<EOD
 	DELETE FROM
 		`sarah`.`users`
@@ -64,7 +68,7 @@ EOD;
 		`USER_ID`='$id'
 EOD;
 
-			return mysql_query($sql) or die(mysql_error());
+			return mysqli_query($sql) or die(mysqli_error());
 		}
 
 		public function getSalt ($id=null) {
@@ -80,6 +84,8 @@ EOD;
 		// pull single column from database for current user (unless user specified)
 		private function getData ($data, $id=null) {
 			global $sessionManager;
+			global $link;
+
 			$USER_ID = ($id != null) ? $id : $sessionManager->getUserId();
 
 			$sql = <<<EOD
@@ -91,8 +97,8 @@ EOD;
 		`USER_ID`='$USER_ID'
 EOD;
 
-			$query_data = mysql_query($sql) or die(mysql_error());
-			$row = mysql_fetch_array( $query_data );
+			$query_data = mysqli_query($link, $sql) or die(mysqli_error());
+			$row = mysqli_fetch_array( $query_data );
 
 			$extract_data = $row["$data"];
 			
@@ -100,6 +106,7 @@ EOD;
 		}
 
 		public function addUser ($user_type, $username, $password) {
+			global $link;
 			// check if user name exists
 			$usercount_sql = <<<EOD
 	SELECT
@@ -136,7 +143,7 @@ EOD;
 		)
 EOD;
 
-				return mysql_query($sql) or die(mysql_error());
+				return mysqli_query($link, $sql) or die(mysqli_error());
 			} else {
 				return null;
 			}
@@ -144,6 +151,8 @@ EOD;
 
 		// required during login to pull the logging in users salt, hash, and hashing algorithm
 		public function getIdFromUsername ($username) {
+			global $link;
+
 			$sql = <<<EOD
 	SELECT
 		`USER_ID`
@@ -152,8 +161,8 @@ EOD;
 	WHERE
 		`username`='$username';
 EOD;
-			$query_data = mysql_query($sql) or die(mysql_error());
-			$row = mysql_fetch_array( $query_data );
+			$query_data = mysqli_query($link, $sql) or die(mysqli_error());
+			$row = mysqli_fetch_array( $query_data );
 
 			$extract_data = $row['USER_ID'];
 			
@@ -161,6 +170,8 @@ EOD;
 		}
 
 		public function checkLogin ($username, $password) {
+			global $link;
+
 			$USER_ID = AuthManager::getIdFromUsername ($username);
 
 			if (!is_null ($USER_ID)) {	// if the user exists
@@ -182,12 +193,12 @@ EOD;
 		USER_ID='$USER_ID'
 EOD;
 				// compare the password has against whats in the database
-				$result	= mysql_query($sql);
-				$count = mysql_num_rows($result);
+				$result	= mysqli_query($link, $sql);
+				$count = mysqli_num_rows($result);
 
 				// If there is only 1 user found
 				if ($count == 1) {
-					$row = mysql_fetch_array($result);
+					$row = mysqli_fetch_array($result);
 
 					// return the user details
 					return array (
