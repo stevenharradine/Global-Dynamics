@@ -161,7 +161,7 @@ EOD;
 	WHERE
 		`username`='$username';
 EOD;
-			$query_data = mysqli_query($link, $sql) or die(mysqli_error());
+			$query_data = mysqli_query($link, $sql) or die(mysqli_error($link));
 			$row = mysqli_fetch_array( $query_data );
 
 			$extract_data = $row['USER_ID'];
