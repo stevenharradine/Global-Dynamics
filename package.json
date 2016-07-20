@@ -63,5 +63,9 @@
     "name": "Budget",
     "git": "https://github.com/stevenharradine/SARAH-budget",
     "path": "SARAH-budget"
+  },{
+    "name": "Proxy",
+    "git": "https://github.com/stevenharradine/SARAH-proxy",
+    "path": "SARAH-proxy"
   }]
 }
