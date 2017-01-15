@@ -31,6 +31,9 @@
 		} elseif (strlen($phone) == 10) {
 			return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
 		} elseif (strlen($phone) == 11) {
+			if (strpos($phone, '40') === 0) {	// handle romania
+				return preg_replace("/([0-9]{2})([0-9]{2})([0-9]{3})([0-9]{4})/", "+$1 $2 $3 $4", $phone);
+			}
 			return preg_replace("/([0-9]{1})([0-9]{3})([0-9]{3})([0-9]{4})/", "+$1 ($2) $3-$4", $phone);
 		} else {
 			return $phone;
