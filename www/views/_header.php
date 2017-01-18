@@ -10,6 +10,11 @@
 		$relative_base_path = '../../';
 	}
 
+	$debug_url = request_isset ('debug');
+	if (isset ($_REQUEST['debug'])) {
+		setcookie("frontend_debug", $debug_url, time() + 60);
+	}
+
 		require_once $relative_base_path . 'models/icon.php';
 
 	if (isset ($headerView)) {
